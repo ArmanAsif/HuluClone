@@ -11,7 +11,7 @@ import IconHeader from "./IconHeader";
 
 const Header = () => {
 	return (
-		<header>
+		<header className="flex flex-col sm:flex-row m-5 justify-between items-center h-auto">
 			<div className="flex flex-grow justify-evenly max-w-2xl">
 				<IconHeader title="HOME" Icon={HomeIcon} />
 				<IconHeader title="TRENDING" Icon={LightningBoltIcon} />

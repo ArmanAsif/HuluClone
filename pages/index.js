@@ -4,7 +4,7 @@ import NavMenu from "../components/NavMenu";
 import Results from "../components/Results";
 import requests from "../utils/requests";
 
-export default function Home() {
+export default function Home({ results }) {
 	return (
 		<div>
 			<Head>
@@ -15,7 +15,7 @@ export default function Home() {
 
 			<Header />
 			<NavMenu />
-			<Results />
+			<Results results={results} />
 		</div>
 	);
 }
@@ -23,5 +23,15 @@ export default function Home() {
 export async function getServerSideProps(context) {
 	const genre = context.query.genre;
 
-	const request = await fetch(`https://api.themoviedb.org/3${requests[genre]}`);
+	const request = await fetch(
+		`https://api.themoviedb.org/3${
+			requests[genre]?.url || requests.fetchTrending.url
+		}`
+	).then((res) => res.json());
+
+	return {
+		props: {
+			results: request.results,
+		},
+	};
 }
